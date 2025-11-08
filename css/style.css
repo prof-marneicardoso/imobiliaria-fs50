@@ -90,7 +90,8 @@ section {
 #imoveis {
     margin: auto;
     display: grid;
-    grid-template-columns: auto auto auto;
+    /* grid-template-columns: auto auto auto; */
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
 }
 
@@ -138,8 +139,6 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-
-    /* border: solid 1px; */
 }
 
 .valor-imovel {
