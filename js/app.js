@@ -1,44 +1,42 @@
-// Simula um JSON online (vindos de uma API ou Banco de Dados)
-// const listaImoveis = [
-//     {
-//         id: 1,
-//         titulo: "Apart. 3 dorm. Papicu",
-//         descricao: "Lindo apartamento de 3 dormitórios localizado num dos melhores bairros de Fortaleza.",
-//         valor: 800000,
-//         area: 90,
-//         quartos: 3,
-//         tipo: "apartemento", // casa, apartamento, terreno
-//         localizacao: "Santos Dummont, Papicu",
-//         mapa: "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.3752203335343!2d-38.52586952782257!3d-3.728109443164852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c74881b09b88ef%3A0xe6f7c3f410959f98!2sAv.%20Santos%20Dumont!5e0!3m2!1spt-BR!2sbr!4v1729100381171!5m2!1spt-BR!2sbr' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>",
-//         venda_aluguel: "venda", // venda, aluguel
-//         finalidade: "residencial", // comercial, residencial
-//         fotos: [
-//             'https://id725a57.s3.amazonaws.com/fotos/i00035801.jpeg', // padrão [0]
-//             'https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-//             'https://img.freepik.com/fotos-premium/uma-casa-branca-encantadora-com-um-telhado-vermelho-brilhante-e-uma-janela-azul_1258321-339.jpg?w=360',
-//         ],
-//         status: true, // true = disponível, false = indisponível
-//     }
-// ];
-// 
-// criarCardImovel(listaImoveis);
 
-
+// const linkAPI = "https://690f565745e65ab24ac355d4.mockapi.io/api/imoveis";
 const linkAPI = "https://690f565745e65ab24ac355d4.mockapi.io/api/imoveis";
 
-buscarDadosAPI(); // Chama a função (usando Hoisting)
+// Mostra o carregamento
+document.querySelector(".loader").style.display = "flex";
+
+setTimeout(() => {
+    buscarDadosAPI();
+}, 1000); // 1000 mili == 1 segundo
+
+// buscarDadosAPI(); // Chama a função (usando Hoisting)
 
 function buscarDadosAPI() {
     // Acessa a API com os dados
     fetch(linkAPI)
-        // Retorna os dados encontrados e converte para JSON
-        .then((response) => response.json())
-        
+        // Retorna os dados encontrados
+        .then((response) => {
+            if (response.status == 404) {
+                throw new Error('Dados não encontrados');
+            }
+
+            // Converte para JSON
+            return response.json()
+        })
         // Mostra os dados
         .then((dados) => {
             // console.log(dados);
             criarCardImovel(dados);
         })
+        .catch((erro) => {
+            // Captura qualquer erro (404, problemas de rede, etc.)
+            console.error('Erro ao buscar dados:', erro.message);
+        })
+        .finally(() => {
+            // Fecha o carregamento
+            document.querySelector(".loader").style.display = "none";
+        });
+
 }
 
 function criarCardImovel(listaImoveis) {

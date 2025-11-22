@@ -154,3 +154,31 @@ footer {
     color: var(--cor-03);
     padding: 2rem;
 }
+
+/* ===== Loader ===== */
+.loader {
+    display: none;
+    font-size: 5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* Chama a animação */
+        animation: loading 0.6s linear infinite;
+    }
+}
+
+/* Animação em CSS */
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
