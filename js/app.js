@@ -46,6 +46,15 @@ function criarCardImovel(listaImoveis) {
     // Cria o card do imóvel
     const cardImovel = document.createElement("article");
     cardImovel.classList.add("imovel");
+    cardImovel.setAttribute("id", imovel.id);
+
+    // ESBOÇO DE NOVA PÁGINA
+    cardImovel.addEventListener("click", () => {
+        console.log('Clicou no card: ', imovel.id);
+        
+        window.location.href = `imovel.html?id=${imovel.id}`;
+    });
+
     // Adiciona o card na lista (na tela)
     document.querySelector("#imoveis").appendChild(cardImovel);
 
