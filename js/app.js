@@ -1,5 +1,3 @@
-
-// const linkAPI = "https://690f565745e65ab24ac355d4.mockapi.io/api/imoveis";
 const linkAPI = "https://690f565745e65ab24ac355d4.mockapi.io/api/imoveis";
 
 // Mostra o carregamento
